@@ -14,6 +14,8 @@ function NavBars() {
                         <Nav.Link href="/" className='font-size'>Home</Nav.Link>
                         <Nav.Link href="#features" className='font-size'>Features</Nav.Link>
                         <Nav.Link href="#pricing" className='font-size'>Pricing</Nav.Link>
+                        <Nav.Link href="/Login" className='font-size'>Login</Nav.Link>
+                        <Nav.Link href="/Signup" className='font-size'>Signup</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
