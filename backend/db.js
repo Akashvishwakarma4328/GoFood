@@ -10,15 +10,6 @@ const mongoDB = async() => {
         });
 
         console.log('MongoDB connected');
-
-        // const fetch_data = await mongoose.connection.collection('food_items');
-        // fetch_data.find({}).toArray(function(err, data) {
-        //     if (err) {
-        //         console.log('Error occurred:', err);
-        //     } else {
-        //         console.log(data);
-        //     }
-        // });
     } catch (error) {
         console.log(error);
         process.exit();
