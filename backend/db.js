@@ -1,31 +1,26 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const mongoURI = "mongodb+srv://Akash4328:Akash123@cluster0.22ezauk.mongodb.net/gofoodmern?retryWrites=true&w=majority";
+const mongoURI = 'mongodb+srv://Akash4328:Akash123@cluster0.22ezauk.mongodb.net/gofoodmern?retryWrites=true&w=majority' // Customer change url to your db you created in atlas
 
-const mongoDB = async() => {
-    try {
+module.exports = function(callback) {
+    mongoose.connect(mongoURI, { useNewUrlParser: true }, async(err, result) => {
+        // mongoDbClient.connect(mongoURI, { useNewUrlParser: true }, async(err, result) => {
+        if (err) console.log("---" + err)
+        else {
+            // var database =
+            console.log("connected to mongo")
+            const foodCollection = await mongoose.connection.db.collection("food_items");
+            foodCollection.find({}).toArray(async function(err, data) {
+                const categoryCollection = await mongoose.connection.db.collection("foodCategory");
+                categoryCollection.find({}).toArray(async function(err, Catdata) {
+                    callback(err, data, Catdata);
 
-
-        await mongoose.connect(mongoURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-
-        console.log('MongoDB connected');
-
-        const foodItemsCollection = mongoose.connection.db.collection("food_items");
-        const foodCategoryCollection = mongoose.connection.db.collection("foodCategory");
-        global.food_items = await foodItemsCollection.find({}).toArray();
-        global.foodCategory = await foodCategoryCollection.find({}).toArray();
-
-        console.log('Fetched food items:', global.food_items);
-        console.log('Fetched food categories:', global.foodCategory);
-
-
-    } catch (error) {
-        console.log('Error connecting to MongoDB:', error);
-        process.exit(1);
-    }
+                })
+            });
+            // listCollections({name: 'food_items'}).toArray(function (err, database) {
+            // });
+            //     module.exports.Collection = database;
+            // });
+        }
+    })
 };
-
-module.exports = mongoDB;
